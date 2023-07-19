@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name" translatable="false">RFIDBeadHouse</string>
+
+    <string name="message_permission_rationale">Grant the following permission to continue the process:\n\n%1$s</string>
+    <string name="message_overlay_failed">Your phone does not allow us to use other applications.</string>
+    <string name="message_permission_always_failed">We need the following permission, please enable it for us in the settings:\n\n%1$s</string>
+    <string name="setting" translateable="false">Setting</string>
+    <string name="resume" translatable="false">Retry</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="out" translatable="false">Exit account</string>
+
+    <string name="account" translatable="false">Account</string>
+    <string name="password" translateable="false" translatable="false">Password</string>
+    <string name="login" translatable="false">LOGIN</string>
+
+    <string name="error_phone" translatable="false">Incorrect username or password</string>
+    <string name="hiht_" translatable="false">Please enter complete</string>
+
+    <string name="e_english" translatable="false">English</string>
+    <string name="t_chinese" translatable="false">繁體中文</string>
+    <string name="s_chinese" translatable="false">简体中文</string>
+    <string name="host" translatable="false">HOST</string>
+    <string name="company_id" translatable="false">CLIENT ID</string>
+    <string name="save" translatable="false">SAVE</string>
+    <string name="please_language" translatable="false">Please select a language</string>
+
+    <string name="trigger_location" translatable="false">Alarm location</string>
+    <string name="user" translatable="false">Alarm User</string>
+    <string name="time" translatable="false">Alarm Time</string>
+    <string name="relieve" translatable="false">Clear</string>
+    <string name="all_clear" translatable="false">All Clear</string>
+    <string name="mute" translatable="false">Mute</string>
+    <string name="all_mute" translatable="false">All Mute</string>
+    <string name="system" translateable="false">system</string>
+    <string name="alert_journal" translateable="false">Alert Journal</string>
+    <string name="our_login" translateable="false">Exit</string>
+
+    <string name="release_time" translateable="false">Release time</string>
+    <string name="release_user" translateable="false">Release User</string>
+    <string name="release_type" translateable="false">Release Type</string>
+    <string name="release_type1" translateable="false">Automatic</string>
+    <string name="release_type2" translateable="false">Manual</string>
+    <string name="release_success" translateable="false">Success</string>
+
+    <string name="confirm" translateable="false">Confirm</string>
+    <string name="hint_1" translateable="false">Mute all?</string>
+    <string name="hint_2" translateable="false">Clear all?</string>
+    <string name="filter_date" translateable="false">Filter date</string>
+
+    <string name="default_notification_channel_id" translatable="false">rfidbeadhouse</string>
+
+</resources>

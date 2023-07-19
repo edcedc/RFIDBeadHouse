@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.yyc.beadhouse.viewmodel.MainModel" />
+
+        <variable
+            name="click"
+            type="com.yyc.beadhouse.ui.frg.MainFrg.ProxyClick" />
+
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/include_toolbar"
+                layout="@layout/include_top" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.yanzhenjie.recyclerview.SwipeRecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:scrollbars="none"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    <LinearLayout
+                        android:id="@+id/layout"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <com.flyco.roundview.RoundTextView
+                            style="@style/roundTextView"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:onClick="@{() -> click.onAllClear()}"
+                            android:padding="5dp"
+                            android:text="@string/all_clear"
+                            android:textColor="@android:color/white"
+                            app:rv_backgroundColor="@color/colorPrimaryDark"
+                            app:rv_cornerRadius="5dp" />
+
+                        <com.flyco.roundview.RoundTextView
+                            style="@style/roundTextView"
+                            android:layout_width="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:onClick="@{() -> click.onAllMute()}"
+                            android:padding="5dp"
+                            android:text="@string/all_mute"
+                            android:textColor="@android:color/white"
+                            app:rv_backgroundColor="@color/red_ff0000"
+                            app:rv_cornerRadius="5dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/activity_main_drawer" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</layout>

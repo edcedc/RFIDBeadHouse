@@ -1,0 +1,49 @@
+<resources>
+
+    <string name="message_permission_rationale">授予以下权限以继续该过程：\n\n%1$s</string>
+    <string name="message_overlay_failed">您的手机不允许我们使用其他应用程序。</string>
+    <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们启用它：\n\n%1$s</string>
+    <string name="setting" translateable="false">设置</string>
+    <string name="resume" translatable="false">重试</string>
+    <string name="cancel" translatable="false">取消</string>
+    <string name="out" translatable="false">退出帐户</string>
+
+    <string name="account" translatable="false">帐户</string>
+    <string name="password" translatable="false">密码</string>
+    <string name="login" translatable="false">登录</string>
+
+    <string name="error_phone" translatable="false">用户名或密码不正确</string>
+    <string name="hiht_" translatable="false">请输入完整</string>
+
+
+    <string name="host" translatable="false">主机</string>
+    <string name="company_id" translatable="false">客户 ID</string>
+    <string name="save" translatable="false">保存</string>
+    <string name="please_language" translatable="false">请选择语言</string>
+
+    <string name="trigger_location" translatable="false">报警位置</string>
+    <string name="user" translatable="false">报警用户</string>
+    <string name="time" translatable="false">闹钟时间</string>
+    <string name="relieve" translatable="false">清除</string>
+    <string name="all_clear" translatable="false">全部清除</string>
+    <string name="mute" translatable="false">静音</string>
+    <string name="all_mute" translatable="false">全部静音</string>
+    <string name="system" translateable="false">系统</string>
+    <string name="alert_journal" translateable="false">警报日志</string>
+    <string name="our_login" translateable="false">退出</string>
+
+    <string name="release_time" translateable="false">发布时间</string>
+    <string name="release_user" translateable="false">释放用户</string>
+    <string name="release_type" translateable="false">发布类型</string>
+    <string name="release_type1" translateable="false">自动</string>
+    <string name="release_type2" translateable="false">手动</string>
+    <string name="release_success" translateable="false">成功</string>
+
+    <string name="confirm" translateable="false">确认</string>
+    <string name="hint_1" translateable="false">全部静音？</string>
+    <string name="hint_2" translateable="false">全部清除？</string>
+    <string name="filter_date" translateable="false">过滤日期</string>
+
+    <string name="default_notification_channel_id" translatable="false">rfidbbeadhouse</string>
+
+</resources>

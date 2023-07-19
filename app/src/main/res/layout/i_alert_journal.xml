@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    android:padding="10dp"
+    android:background="@drawable/linerlayout_water_selector"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_trigger_location"
+        android:text="@string/trigger_location"
+        style="@style/Tv12black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_alarm_user"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_trigger_location"
+        app:layout_constraintTop_toBottomOf="@id/tv_trigger_location"
+        android:text="@string/user"
+        style="@style/Tv12black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_alarm_time"
+        android:layout_marginLeft="40dp"
+        app:layout_constraintLeft_toRightOf="@id/tv_alarm_user"
+        app:layout_constraintTop_toTopOf="@id/tv_alarm_user"
+        app:layout_constraintBottom_toBottomOf="@id/tv_alarm_user"
+        android:text="@string/time"
+        style="@style/Tv12black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_release_time"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_trigger_location"
+        app:layout_constraintTop_toBottomOf="@id/tv_alarm_user"
+        android:text="@string/release_time"
+        style="@style/Tv12black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_release_type"
+        android:layout_marginLeft="40dp"
+        app:layout_constraintLeft_toRightOf="@id/tv_release_time"
+        app:layout_constraintTop_toTopOf="@id/tv_release_time"
+        app:layout_constraintBottom_toBottomOf="@id/tv_release_time"
+        android:text="@string/release_type"
+        style="@style/Tv12black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_release_user"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_trigger_location"
+        app:layout_constraintTop_toBottomOf="@id/tv_release_time"
+        android:text="@string/release_user"
+        style="@style/Tv12black"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

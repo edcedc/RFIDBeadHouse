@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navation"
+    app:startDestination="@id/mainFrg">
+
+    <fragment
+        android:id="@+id/mainFrg"
+        android:name="com.yyc.beadhouse.ui.frg.MainFrg"
+        android:label="MainFrg">
+
+        <action
+            android:id="@+id/action_mainfragment_to_alertJournalFrg"
+            app:destination="@id/alertJournalFrg"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/alertJournalFrg"
+        android:name="com.yyc.beadhouse.ui.frg.AlertJournalFrg"
+        android:label="AlertJournalFrg" />
+
+</navigation>

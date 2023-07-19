@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "300933113392",
+    "project_id": "rfidbeadhouse",
+    "storage_bucket": "rfidbeadhouse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300933113392:android:19b9f9032c5dd2b45aeff5",
+        "android_client_info": {
+          "package_name": "com.yyc.beadhouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300933113392-0ugdi1vb2eulj68krev73htos2fr4157.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbTTaF7XZXMGLDgQrbuaWd3i3QOp6u-UI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300933113392-0ugdi1vb2eulj68krev73htos2fr4157.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
