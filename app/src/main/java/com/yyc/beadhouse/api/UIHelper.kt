@@ -38,7 +38,7 @@ class UIHelper private constructor() {
         fun startSettingFrg(nav: NavController) {
             val bundle = Bundle()
             bundle.putString("key", "test")
-            nav.navigateAction(R.id.action_mainfragment_to_settingFragment, bundle)
+            nav.navigateAction(R.id.action_loginfragment_to_settingFrg, bundle)
         }
 
         /**
@@ -46,7 +46,7 @@ class UIHelper private constructor() {
          */
         fun startAlertJournalFrg(nav: NavController) {
             val bundle = Bundle()
-            nav.navigateAction(R.id.action_mainfragment_to_alertJournalFrg, bundle)
+            nav.navigateAction(R.id.action_mainFrg_to_alertJournalFrg, bundle)
         }
     }
 }

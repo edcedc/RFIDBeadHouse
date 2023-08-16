@@ -16,8 +16,8 @@ interface ApiService{
     companion object {
 
         private val url =
-//            "192.168.2.18"
-            "47.243.120.137"
+            "192.168.2.18"
+//            "47.243.120.137"
 
         var SERVLET_URL = "http://" +
                 url + "/RFIDBeadHouseWebService/MobileWebService.asmx/"
@@ -57,6 +57,5 @@ interface ApiService{
         @Field("alertID") alertID: String,
         @Field("alertType") alertType: Int = 2,
     ): BaseResponseBean<DataBean?>
-
 
 }

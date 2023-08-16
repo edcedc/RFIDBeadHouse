@@ -4,20 +4,20 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
-import com.blankj.utilcode.util.LogUtils
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.ktx.messaging
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.runtime.Permission
 import com.yc.reid.api.UIHelper
 import com.yc.tea.api.ApiService
 import com.yyc.beadhouse.R
-import com.yyc.beadhouse.bean.AppRoomDataBase
-import com.yyc.beadhouse.bean.db.Alert
 import com.yyc.beadhouse.databinding.ASplashBinding
 import com.yyc.beadhouse.util.CacheUtil
 import com.yyc.beadhouse.weight.permission.RuntimeRationale
@@ -35,7 +35,11 @@ class SplashAct : BaseActivity<BaseViewModel, ASplashBinding>(){
     var REQUEST_CODE_SETTING: Int = 1
 
     override fun initView(savedInstanceState: Bundle?) {
-        setHasPermission()
+
+        Thread {
+            setHasPermission()
+        }.start()
+
         //初始化url
         val url = CacheUtil.getUrl()
         if (url.isEmpty()){
@@ -71,13 +75,36 @@ class SplashAct : BaseActivity<BaseViewModel, ASplashBinding>(){
      * 权限都成功
      */
     fun setPermissionOk() {
-        val user = CacheUtil.getUser()
-        if (user != null){
-            UIHelper.startMainAct()
-        }else{
-            UIHelper.startLoginAct()
-        }
-        finish()
+        Glide.with(this).load(R.mipmap.icon_page2).listener(object : RequestListener<Drawable?> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any,
+                target: Target<Drawable?>,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any,
+                target: Target<Drawable?>,
+                dataSource: DataSource,
+                isFirstResource: Boolean
+            ): Boolean {
+                Handler().postDelayed({
+                    val user = CacheUtil.getUser()
+                    if (user != null){
+                        UIHelper.startMainAct()
+                    }else{
+                        UIHelper.startLoginAct()
+                    }
+                    finish()
+                }, 3000)
+                return false
+            }
+        }).into(mDatabind.ivImage)
+
     }
 
     /**

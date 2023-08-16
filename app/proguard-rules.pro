@@ -265,3 +265,5 @@ public void onEventMainThread(**);
 -keepattributes InnerClasses,Signature
 -keepattributes *Annotation*
 -keep class cn.addapp.pickers.entity.** { *;}
+#permissions
+-dontwarn com.hjq.permissions.**

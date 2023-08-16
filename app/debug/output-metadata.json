@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.ycc",
+  "applicationId": "com.yyc.beadhouse",
   "variantName": "debug",
   "elements": [
     {
@@ -12,8 +12,8 @@
       "filters": [],
       "attributes": [],
       "versionCode": 1,
-      "versionName": "1.0",
-      "outputFile": "CXK_1.0_debug_2023.07.07.apk"
+      "versionName": "1.1",
+      "outputFile": "CXK_1.1_debug_2023.08.15.apk"
     }
   ],
   "elementType": "File"

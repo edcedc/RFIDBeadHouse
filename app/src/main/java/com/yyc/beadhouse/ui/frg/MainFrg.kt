@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -25,18 +26,21 @@ import com.yyc.beadhouse.ext.ALERT_MUTE
 import com.yyc.beadhouse.ext.init
 import com.yyc.beadhouse.ext.loadListData
 import com.yyc.beadhouse.ext.loadServiceInit
-import com.yyc.beadhouse.ext.moveToPosition
 import com.yyc.beadhouse.ext.showEmpty
 import com.yyc.beadhouse.ext.showLoading
 import com.yyc.beadhouse.viewmodel.MainModel
 import com.yyc.beadhouse.viewmodel.NotificationModel
 import com.yyc.beadhouse.weight.PopupWindowTool
 import com.yyc.beadhouse.weight.recyclerview.SpaceItemDecoration
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.ext.nav
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -46,6 +50,8 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class MainFrg : BaseFragment<MainModel, FMainBinding>(),
     NavigationView.OnNavigationItemSelectedListener {
+
+    var compositeDisposable: Disposable? = null
 
     //界面状态管理者
     lateinit var loadsir: LoadService<Any>
@@ -76,6 +82,7 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
                 true
             }
         }
+        mDatabind.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         //初始化recyclerView
         mDatabind.recyclerView.init(LinearLayoutManager(context), adapter).let {
@@ -132,9 +139,16 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
                 super.onDestroy(owner)
+                compositeDisposable?.dispose()
                 EventBus.getDefault().unregister(this)
             }
         })
+
+        compositeDisposable = Observable.interval(6, TimeUnit.SECONDS)
+            .observeOn(Schedulers.io()) // 切换到IO线程执行操作
+            .subscribe { tick ->
+                mViewModel.onRequest()
+            }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -143,7 +157,7 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
     }
 
     private fun setRecyMove(msg: String) {
-        if (!msg.isEmpty()) {
+        /*if (!msg.isEmpty()) {
             adapter.data.forEachIndexed() { index, dataBean ->
                 if (dataBean.id.equals(msg)) {
                     moveToPosition(mDatabind.recyclerView, index)
@@ -152,40 +166,39 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
                     return
                 }
             }
-        }
+        }*/
     }
 
     //region数据回调
     override fun createObserver() {
         super.createObserver()
-         mViewModel.listBean.observe(viewLifecycleOwner, Observer {
+        mViewModel.listBean.observe(viewLifecycleOwner, Observer {
              loadListData(it, adapter, loadsir, mDatabind.recyclerView, mDatabind.swipeRefresh, it.pageSize)
              if (!mDatabind.layout.isVisible)mDatabind.layout.visibility = View.VISIBLE
-         })
+        })
 
         mViewModel.muteBean.observe(viewLifecycleOwner,{
-            when(it.position){
-                -1 ->{
-                    adapter.data.forEach {
-                        it.NoSound = 1
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-                -2 ->{
-                    adapter.data.clear()
-                    adapter.notifyDataSetChanged()
-                    loadsir.showEmpty()
-                }
-                else ->{
-                    if (it.NoSound == 1){
-                        val bean = adapter.data[it.position]
-                        bean.NoSound = it.NoSound
-                        adapter.setData(it.position, bean)
-                    }else{
-                        adapter.removeAt(it.position)
-                    }
-                }
+            val bean = adapter.data[it.position]
+            bean.NoSound = it.NoSound
+            adapter.setData(it.position, bean)
+        })
+
+        mViewModel.clearBean.observe(viewLifecycleOwner, {
+            adapter.removeAt(it.position)
+        })
+
+        mViewModel.muteAllBean.observe(viewLifecycleOwner, {
+            adapter.data.forEach {
+                it.NoSound = 1
             }
+            adapter.notifyDataSetChanged()
+        })
+
+
+        mViewModel.clearAllBean.observe(viewLifecycleOwner, {
+            adapter.data.clear()
+            adapter.notifyDataSetChanged()
+            loadsir.showEmpty()
         })
 
         notificationModel.notification.observe(viewLifecycleOwner, Observer {
@@ -214,11 +227,9 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
                     showLoading("DeleteToken...")
                     FirebaseMessaging.getInstance().deleteToken()
                         .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                dismissLoading()
-                                UIHelper.startLoginAct()
-                                requireActivity().finish()
-                            }
+                            dismissLoading()
+                            UIHelper.startLoginAct()
+                            requireActivity().finish()
                         }
 
                 }
@@ -242,11 +253,7 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
             PopupWindowTool.showDialog(activity).asConfirm(
                 getText(R.string.app_name), getText(R.string.hint_2),
                 getText(R.string.cancel), getText(R.string.confirm),{
-                    var sb = StringBuffer()
-                    adapter.data.forEach {
-                        sb.append(it.id).append(",")
-                    }
-                    mViewModel.onClear(ALERT_CLEAR, sb.toString(), -2)
+                    mViewModel.onAllClear(ALERT_CLEAR, adapter.data)
                 }, {
 
                 } , false
@@ -257,11 +264,7 @@ class MainFrg : BaseFragment<MainModel, FMainBinding>(),
             PopupWindowTool.showDialog(activity).asConfirm(
                 getText(R.string.app_name), getText(R.string.hint_1),
                 getText(R.string.cancel), getText(R.string.confirm),{
-                    var sb = StringBuffer()
-                    adapter.data.forEach {
-                        sb.append(it.id).append(",")
-                    }
-                    mViewModel.onMute(ALERT_MUTE, sb.toString(), -1)
+                    mViewModel.onAllMute(ALERT_MUTE, adapter.data)
                 }, {
 
                 } , false

@@ -6,16 +6,17 @@ import androidx.fragment.app.viewModels
 import com.blankj.utilcode.util.LogUtils
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
 import com.yc.reid.api.UIHelper
 import com.yyc.beadhouse.R
+import com.yyc.beadhouse.bean.AppRoomDataBase
+import com.yyc.beadhouse.bean.db.Alert
 import com.yyc.beadhouse.databinding.FLoginBinding
 import com.yyc.beadhouse.ext.showMessage
 import com.yyc.beadhouse.viewmodel.LoginModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.ext.nav
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 /**
@@ -57,6 +58,22 @@ class LoginFrg : BaseFragment<LoginModel, FLoginBinding>() {
                         mViewModel.password.get()
                     )
             }
+           /* val alertDao = AppRoomDataBase.get().getAlertDao()!!
+            for (i in 0..19) {
+                val bean = Alert()
+                var obj = JSONObject()
+                obj.put("text", "$i 号门")
+                obj.put("xxx", "$i 000号门")
+                var json = JSONArray()
+                json.put(obj)
+                bean.alertAddress = json.toString()
+                alertDao.add(bean)
+            }
+
+            alertDao.findAll()!!.forEachIndexed(){index, alert ->
+                LogUtils.e(index, alert)
+            }*/
+
         }
 
         fun toSet() {

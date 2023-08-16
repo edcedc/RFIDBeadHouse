@@ -66,7 +66,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
-            LogUtils.e(it.title, it.body)
             sendNotification(it.title!!, it.body!!)
 //            processCustomMessage(it.title!!, it.body!!)
         }
@@ -113,20 +112,23 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(contentTitle: String, messageBody: String) {
+        LogUtils.e(contentTitle, messageBody)
+
         var title = ""
         var id = ""
-        if (!messageBody.isEmpty() && messageBody.contains("data")) {
-            var json = JSONObject(messageBody)
-            val data = json.optJSONObject("data")
-            title = data.optString("title")
-            id = data.optString("id")
+
+        var msg = ""
+        if (!messageBody.isEmpty() && messageBody.contains("|")) {
+            msg = messageBody.replace("|", "")
+            title = msg[0].toString()
+            id = msg[1].toString()
         }
         val bundle = Bundle()
         bundle.putString("id", id)
         bundle.putString("title", title)
 
         val requestCode = 0
-        val intent = Intent(this, LoginAct::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtras(bundle)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
@@ -139,9 +141,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val channelId = getString(R.string.app_name)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.logo_sp)
+            .setSmallIcon(R.mipmap.logo_sp)
             .setContentTitle(contentTitle)
-            .setContentText(messageBody)
+            .setContentText(title)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)

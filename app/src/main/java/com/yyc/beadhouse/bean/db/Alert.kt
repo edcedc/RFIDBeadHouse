@@ -1,10 +1,13 @@
 package com.yyc.beadhouse.bean.db
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.JsonArray
 import io.reactivex.rxjava3.annotations.NonNull
 import me.hgj.jetpackmvvm.callback.databind.StringObservableField
+import org.json.JSONArray
 
 /**
  * @Author nike

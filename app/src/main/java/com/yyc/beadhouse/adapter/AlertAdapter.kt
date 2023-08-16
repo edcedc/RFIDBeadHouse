@@ -14,6 +14,7 @@ import com.flyco.roundview.RoundTextView
 import com.yyc.beadhouse.R
 import com.yyc.beadhouse.bean.DataBean
 import com.yyc.beadhouse.ext.ALERT_CLEAR
+import com.yyc.beadhouse.ext.ALERT_CLEAR_MUTE
 import com.yyc.beadhouse.ext.ALERT_MUTE
 import com.yyc.beadhouse.ext.setAdapterAnimation
 import com.yyc.beadhouse.util.SettingUtil
@@ -29,7 +30,7 @@ class AlertAdapter (data: MutableList<DataBean>) :
 
 
     init {
-        setAdapterAnimation(SettingUtil.getListMode())
+//        setAdapterAnimation(SettingUtil.getListMode())
     }
 
     override fun convert(holder: BaseViewHolder, item: DataBean) {
@@ -39,35 +40,29 @@ class AlertAdapter (data: MutableList<DataBean>) :
             holder.setText(R.id.tv_alarm_user, context.getString(R.string.user) + "：" + item.user)
             holder.setText(R.id.tv_alarm_time, context.getString(R.string.time) + "：" + item.time)
 
-            /*when(item.NoSound){
-                1 ->{
+            val drawableClear = ContextCompat.getDrawable(context, R.mipmap.icon_37)
+            drawableClear?.setBounds(0, 0, 40, 40) // 设置图片的宽度和高度
+            holder.getView<RoundTextView>(R.id.tv_elieve).setCompoundDrawables(drawableClear, null, null, null)
+
+            when(item.NoSound){
+                ALERT_MUTE ->{
+                    val drawable = ContextCompat.getDrawable(context, R.mipmap.icon_39)
+                    drawable?.setBounds(0, 0, 40, 40) // 设置图片的宽度和高度
+                    holder.getView<RoundTextView>(R.id.tv_mute).setCompoundDrawables(drawable, null, null, null)
                     holder.getView<RoundTextView>(R.id.tv_mute).paint.flags = STRIKE_THRU_TEXT_FLAG
                     holder.getView<RoundTextView>(R.id.tv_mute).paint.isAntiAlias = true
                 }
-                2 ->{
-                    holder.setText(R.id.tv_elieve, context.getString(R.string.time) + "：" + item.time)
+                0, ALERT_CLEAR_MUTE ->{
+                    val drawable = ContextCompat.getDrawable(context, R.mipmap.icon_38)
+                    drawable?.setBounds(0, 0, 40, 40) // 设置图片的宽度和高度
+                    holder.getView<RoundTextView>(R.id.tv_mute).setCompoundDrawables(drawable, null, null, null)
+                    holder.getView<RoundTextView>(R.id.tv_mute).paint.flags =
+                        holder.getView<RoundTextView>(R.id.tv_mute).paintFlags and Paint.UNDERLINE_TEXT_FLAG
                 }
-            }*/
-
-            //临时
-            if (textType == 1){
-                holder.getView<AppCompatTextView>(R.id.tv_trigger_location).setTypeface(null, Typeface.BOLD)
-                holder.getView<AppCompatTextView>(R.id.tv_trigger_location).setTextColor(ContextCompat.getColor(context, R.color.red_ff0000))
-            }else{
-                holder.getView<AppCompatTextView>(R.id.tv_trigger_location).setTypeface(null, Typeface.NORMAL)
-                holder.getView<AppCompatTextView>(R.id.tv_trigger_location).setTextColor(ContextCompat.getColor(context, R.color.black_121212))
             }
 
-            if (item.NoSound == ALERT_MUTE){
-                holder.getView<RoundTextView>(R.id.tv_mute).paint.flags = STRIKE_THRU_TEXT_FLAG
-                holder.getView<RoundTextView>(R.id.tv_mute).paint.isAntiAlias = true
-            }else{
-                holder.getView<RoundTextView>(R.id.tv_mute).paint.flags =
-                    holder.getView<RoundTextView>(R.id.tv_mute).paintFlags and Paint.UNDERLINE_TEXT_FLAG
-            }
             holder.getView<RoundTextView>(R.id.tv_mute).setOnClickListener {
-                if (item.NoSound == ALERT_MUTE)return@setOnClickListener
-                onItemClickListener?.onMuteType(ALERT_MUTE, item.id, holder.adapterPosition)
+                onItemClickListener?.onMuteType(item.NoSound, item.id, holder.adapterPosition)
             }
             holder.getView<RoundTextView>(R.id.tv_elieve).setOnClickListener {
                 onItemClickListener?.onRelieveType(ALERT_CLEAR, item.id, holder.adapterPosition)

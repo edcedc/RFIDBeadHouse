@@ -45,7 +45,7 @@ class AlertJournalModel: BaseViewModel() {
                 ListDataUiState(
                     isSuccess = false,
                     errMessage = it.errorMsg,
-                    isRefresh = true,
+                    isRefresh = isRefresh,
                     listData = arrayListOf<DataBean>()
                 )
             listData.value = listDataUiState

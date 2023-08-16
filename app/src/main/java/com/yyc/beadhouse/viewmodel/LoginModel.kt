@@ -28,6 +28,7 @@ import me.hgj.jetpackmvvm.state.ResultState
  */
 class LoginModel: BaseViewModel() {
 
+
     //用户名
     var username = StringObservableField()
 
@@ -73,7 +74,6 @@ class LoginModel: BaseViewModel() {
             "正在登录中..."//等待框内容，可以默认不填请求网络中...
         )*/
 
-
         Firebase.messaging.token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -98,7 +98,7 @@ class LoginModel: BaseViewModel() {
                         }else{
                             ToastUtils.showShort(it.msg)
                         }
-
+                        loadingChange.dismissDialog
                     }
                 },{
                     //请求失败 网络异常回调在这里
@@ -109,7 +109,41 @@ class LoginModel: BaseViewModel() {
             },
         )
 
+        /*requestNoCheck({apiService.CheckLogin("", username, password)},{
+            //请求成功 自己拿到数据做业务需求操作
+            if(it.isSucces()){
+                val data = it.data
+                if (data != null){
+                    //登录成功 通知账户数据发生改变鸟
+                    data.token = ""
+                    CacheUtil.setUser(data)
+                    CacheUtil.setIsLogin(true)
+                    appViewModel.userInfo.value = data!!
+                    UIHelper.startMainAct()
+                    ActivityUtils.finishAllActivities()
+                }else{
+                    ToastUtils.showShort(it.msg)
+                }
+                loadingChange.dismissDialog
+            }
+        },{
+            //请求失败 网络异常回调在这里
+            loadingChange.dismissDialog
+            ToastUtils.showShort(it.throwable!!.message)
+            LogUtils.e(it.throwable, it.throwable!!.message)
+        }, false)
+*/
+        /*requestNoCheck({apiService.CheckLogin("token", username, password)},{
+            //请求成功 自己拿到数据做业务需求操作
+            if(it.isSucces()){
 
+            }
+        },{
+            //请求失败 网络异常回调在这里
+            loadingChange.dismissDialog
+            ToastUtils.showShort(it.throwable!!.message)
+            LogUtils.e(it.throwable, it.throwable!!.message)
+        }, false)*/
     }
 
 }

@@ -40,10 +40,10 @@ interface AlertDao {
     @Query("SELECT * FROM Alert")
     fun findAll(): List<Alert?>?
 
-    /**
-     * 修改
-     */
-    @Update
-    fun update(bean: Alert?)
+        /**
+         * 修改
+         */
+        @Update
+        fun update(bean: Alert?)
 
 }

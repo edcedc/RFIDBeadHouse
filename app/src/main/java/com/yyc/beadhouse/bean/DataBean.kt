@@ -25,6 +25,6 @@ data class DataBean(
     var muteType: Int = 0,
     var position: Int = 0,
     var type: Int = 0,
-    var NoSound: Int = 0, //是否静音：1是0否
+    var NoSound: Int = 0,
     var textType: Int = 0
 ) : Parcelable

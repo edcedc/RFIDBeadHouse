@@ -17,6 +17,7 @@ package com.yyc.beadhouse.weight.permission;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import com.yyc.beadhouse.R;
@@ -34,13 +35,16 @@ public final class RuntimeRationale implements Rationale<List<String>> {
     public void showRationale(Context context, List<String> permissions, final RequestExecutor executor) {
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = context.getString(R.string.message_permission_rationale, TextUtils.join("\n", permissionNames));
-
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setTitle(R.string.app_name)
                 .setMessage(message)
-                .setPositiveButton(R.string.resume, (dialog, which) -> executor.execute())
-                .setNegativeButton(R.string.cancel, (dialog, which) -> executor.cancel())
+                .setPositiveButton(R.string.resume, (dialog, which) ->
+                        executor.execute()
+                )
+                .setNegativeButton(R.string.cancel, (dialog, which) ->
+                        executor.cancel()
+                )
                 .show();
     }
 }

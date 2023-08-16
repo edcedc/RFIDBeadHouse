@@ -90,12 +90,7 @@ class AlertJournalFrg: BaseFragment<AlertJournalModel, BTitleRecyclerBinding>() 
     override fun createObserver() {
         super.createObserver()
         mViewModel.listData.observe(viewLifecycleOwner, Observer {
-          if (it.isSuccess) {
-                loadListData(it, adapter, loadsir, mDatabind.recyclerView, mDatabind.swipeRefresh, it.pageSize)
-            } else {
-                //失败
-                loadsir.showError(it.errMessage)
-            }
+            loadListData(it, adapter, loadsir, mDatabind.recyclerView, mDatabind.swipeRefresh, it.pageSize)
         })
     }
 

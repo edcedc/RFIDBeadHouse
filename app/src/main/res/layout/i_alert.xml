@@ -42,31 +42,36 @@
         <com.flyco.roundview.RoundTextView
             android:id="@+id/tv_elieve"
             style="@style/roundTextView"
-            android:layout_width="80dp"
             android:layout_marginTop="10dp"
-            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:drawablePadding="5dp"
             android:text="@string/relieve"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="@id/tv_trigger_location"
             app:layout_constraintTop_toBottomOf="@id/tv_alarm_time"
-            app:rv_backgroundColor="@color/colorPrimaryDark"
-            app:rv_cornerRadius="15dp" />
+            app:rv_backgroundColor="@color/red_ff0000"
+            app:rv_cornerRadius="10dp" />
 
         <com.flyco.roundview.RoundTextView
             android:id="@+id/tv_mute"
             style="@style/roundTextView"
-            android:layout_width="80dp"
             android:layout_marginLeft="40dp"
-            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:drawablePadding="5dp"
             android:text="@string/mute"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_elieve"
             app:layout_constraintLeft_toRightOf="@id/tv_elieve"
             app:layout_constraintTop_toTopOf="@id/tv_elieve"
-            app:rv_backgroundColor="@color/red_ff0000"
-            app:rv_cornerRadius="15dp" />
+            app:rv_backgroundColor="@color/colorPrimaryDark"
+            app:rv_backgroundPressColor="@color/colorPrimaryDark2"
+            app:rv_cornerRadius="10dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

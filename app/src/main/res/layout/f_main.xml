@@ -19,7 +19,6 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
         <LinearLayout
@@ -65,8 +64,9 @@
                             android:onClick="@{() -> click.onAllClear()}"
                             android:padding="5dp"
                             android:text="@string/all_clear"
+                            android:textSize="14sp"
                             android:textColor="@android:color/white"
-                            app:rv_backgroundColor="@color/colorPrimaryDark"
+                            app:rv_backgroundColor="@color/red_ff0000"
                             app:rv_cornerRadius="5dp" />
 
                         <com.flyco.roundview.RoundTextView
@@ -77,8 +77,10 @@
                             android:onClick="@{() -> click.onAllMute()}"
                             android:padding="5dp"
                             android:text="@string/all_mute"
+                            android:textSize="14sp"
                             android:textColor="@android:color/white"
-                            app:rv_backgroundColor="@color/red_ff0000"
+                            app:rv_backgroundColor="@color/colorPrimaryDark"
+                            app:rv_backgroundPressColor="@color/colorPrimaryDark2"
                             app:rv_cornerRadius="5dp" />
 
                     </LinearLayout>

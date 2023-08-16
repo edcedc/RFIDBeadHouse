@@ -2,11 +2,9 @@ package com.yyc.beadhouse.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.TimeUtils
-import com.yyc.beadhouse.bean.AppRoomDataBase
-import com.yyc.beadhouse.bean.BaseListBean
 import com.yyc.beadhouse.bean.DataBean
-import com.yyc.beadhouse.bean.db.Alert
+import com.yyc.beadhouse.ext.ALERT_CLEAR_MUTE
+import com.yyc.beadhouse.ext.ALERT_MUTE
 import com.yyc.beadhouse.network.apiService
 import com.yyc.beadhouse.network.stateCallback.ListDataUiState
 import com.yyc.beadhouse.util.CacheUtil
@@ -22,11 +20,12 @@ class MainModel: BaseViewModel() {
 
     var listBean: MutableLiveData<ListDataUiState<DataBean>> = MutableLiveData()
 
-    //是否解除警报  单条
+    //解除静音
     val muteBean: MutableLiveData<DataBean> = MutableLiveData()
-
-    //是否解除警报  全部
     val muteAllBean: MutableLiveData<DataBean> = MutableLiveData()
+    //解除警报
+    val clearBean: MutableLiveData<DataBean> = MutableLiveData()
+    val clearAllBean: MutableLiveData<DataBean> = MutableLiveData()
 
     fun onRequest() {
         request({ apiService.AlarmList(CacheUtil.getUser()!!.RoNo) }, {
@@ -72,9 +71,16 @@ class MainModel: BaseViewModel() {
     }
 
     fun onMute(type: Int, ids: String, position: Int) {
-        request({ apiService.ClearAlarm(CacheUtil.getUser()!!.RoNo, type, ids) }, {
+        var newType = type
+
+        if (newType == ALERT_MUTE){
+            newType = ALERT_CLEAR_MUTE
+        }else{
+            newType = ALERT_MUTE
+        }
+        request({ apiService.ClearAlarm(CacheUtil.getUser()!!.RoNo, newType, ids) }, {
             val bean = DataBean()
-            bean.NoSound = type
+            bean.NoSound = newType
             bean.position = position
             muteBean.value = bean
         }, {
@@ -82,12 +88,38 @@ class MainModel: BaseViewModel() {
         })
     }
 
-    fun onClear(type: Int, ids: String, position: Int) {
-        request({ apiService.ClearAlarm(CacheUtil.getUser()!!.RoNo, type, ids) }, {
+    fun onClear(type: Int, id: String, position: Int) {
+        request({ apiService.ClearAlarm(CacheUtil.getUser()!!.RoNo, type, id) }, {
             val bean = DataBean()
-            bean.NoSound = type
+//            bean.NoSound = type
             bean.position = position
-            muteBean.value = bean
+            clearBean.value = bean
+        }, {
+            LogUtils.e(it)
+        })
+    }
+
+    fun onAllClear(type: Int, data: MutableList<DataBean>) {
+        var sb = StringBuffer()
+        data.forEach {
+            sb.append(it.id).append(",")
+        }
+        request({ apiService.ClearAlarm(CacheUtil.getUser()!!.RoNo, type, sb.toString()) }, {
+            val bean = DataBean()
+            clearAllBean.value = bean
+        }, {
+            LogUtils.e(it)
+        })
+    }
+
+    fun onAllMute(type: Int, data: MutableList<DataBean>) {
+        var sb = StringBuffer()
+        data.forEach {
+            sb.append(it.id).append(",")
+        }
+        request({ apiService.ClearAlarm(CacheUtil.getUser()!!.RoNo, type, sb.toString()) }, {
+            val bean = DataBean()
+            muteAllBean.value = bean
         }, {
             LogUtils.e(it)
         })
